@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Style Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background-color: #000; /* Background color for the entire website */
+            color: #fff;
+        }
+
+        .navbar {
+            background-color: transparent;
+            position: absolute; /* Navbar stays at the top of the page */
+            width: 100%;
+            z-index: 2; /* Ensure navbar is above other content */
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ddd;
+        }
+
+        .hero-section {
+            position: relative;
+            background-image: url('p.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-buttons .btn {
+            margin: 10px;
+        }
+
+        .hero-section .text-left {
+            text-align: left;
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 30px; 
+            background-color: transparent;
+           
+        }
+
+        .modal-dialog {
+            max-width: 90%;
+            margin: 1.75rem auto;
+        }
+
+        .modal-body {
+            padding: 0;
+        }
+
+        .modal-video {
+            border-radius: 30px;
+            width: 70%;
+            height: auto;
+            margin-left: 200px;
+        }
+
+
+        .judul {
+  display: flex;
+  left: 10px;
+  position: absolute;
+  margin-bottom: 100px;
+}
+
+.movie-list-container {
+  display: flex;
+  padding: 20px;
+  overflow-x: scroll;
+}
+
+.movie-list-container .judul {
+  margin: 20px;
+}
+
+.movie-list-wrapper {
+  position: relative;
+  display: flex;
+}
+.movie-list {
+  display: flex;
+  align-items: center;
+  height: 300px;
+}
+
+.movie-list-item {
+  margin-right: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-list-item:hover .movie-list-item-img {
+  transform: scale(1.2);
+  margin: 0 30px;
+  opacity: 0.5;
+}
+.movie-list-item:hover .movie-list-item-title,
+.movie-list-item:hover .movie-list-item-desc,
+.movie-list-item:hover .movie-list-item-button {
+  opacity: 1;
+}
+
+.movie-list-item-img {
+  transition: all 0.7s ease-in-out;
+  width: 270px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.movie-list-item-title {
+  background-color: #0000006c;
+  padding: 1px;
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: -190px;
+  margin-bottom: 0px;
+  width: 60px;
+  z-index: 1;
+  margin-left: 20px;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+}
+
+.movie-list-item-desc {
+  font-size: 15px;
+  padding: 7%;
+  position: relative;
+  background-color: #0000006c;
+  width: 250px;
+  margin: 0;
+  margin-top: auto;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+}
+.movie-list-item-button {
+  z-index: 1;
+  width: 20%;
+  font-size: 14px;
+  background-color: rgb(255, 127, 127);
+  color: #000000;
+  padding: 7px 15px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  margin-left: 20px;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+  text-decoration: none;
+  text-align: center;
+}
+
+.movie-list-item-button:hover {
+  background-color: white;
+}
+
+.arrow {
+  font-size: 70px;
+  position: absolute;
+  top: 130px;
+  right: 0px;
+  color: lightgray;
+  opacity: 0.5;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+}
+.movie-list-title span {
+  color: rgb(218, 6, 6);
+}
+
+.portfolio-section .card .card-img-top {
+  height: 230px;
+  width: 100%;
+  object-fit: cover;
+}
+.card {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  transition: box-shadow 0.5s, transform 0.5s;
+  margin-top: 80px;
+  border: none;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5;
+}
+.card:hover {
+  transform: scale(1.2); /* Memperbesar gambar saat hover */
+  z-index: 2;
+}
+.card:hover img {
+  transform: scale(1.1); /* Memperbesar gambar saat hover */
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.overlay:hover {
+  opacity: 1;
+}
+
+.text {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: aquamarine;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+
+.button:hover {
+  background-color: #000000;
+  color: #fff;
+}
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 3% 9%;
+    background-image: url('wapee.jpg'); /* Sesuaikan dengan path gambar */
+    background-size: cover;
+    background-position: center;
+    color: #bdbdbd;
+    row-gap: 1.5rem;
+}
+
+.footer .foot-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+}
+
+.footer .foot-col {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.footer .foot-col h3 {
+    font-family: 'Khmer', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #bdbdbd;
+}
+
+.footer .foot-col p,
+.footer .foot-col a {
+    font-family: 'Khmer', sans-serif;
+    font-size: 1rem;
+    color: #bdbdbd;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer .foot-col a:hover {
+    color: #fff;
+}
+
+.footer .footer-left {
+    font-family: 'Krona One', sans-serif;
+    font-size: 1.75rem;
+    color: #bdbdbd;
+}
+
+.footer .footer-left p {
+    font-size: 1rem;
+}
+
+.footer .icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.footer .icons a {
+    font-size: 2rem;
+    color: #bdbdbd;
+    background: #000;
+    padding: 0.5rem;
+    border-radius: 50%;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.footer .icons a:hover {
+    color: #fff;
+    background-color: #414141;
+}
+
+.footer .separator {
+    border-top: 2px solid #000;
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.footer .watermark {
+    font-size: 0.9rem;
+    text-align: center;
+    width: 100%;
+    margin-top: 1.5rem;
+    color: #bdbdbd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer .foot-cols {
+        grid-template-columns: 1fr;
+    }
+
+    .footer .foot-col {
+        align-items: center;
+    }
+
+    .footer .icons {
+        justify-content: center;
+    }
+}
+
+
+/* SLIDER  */
+.anjay-video {
+      width: 100%; /* Atur lebar video menjadi 100% dari modal */
+      max-width: 500px; /* Batas maksimal lebar video */
+      border-radius: 30px; /* Border radius sebesar 30px */
+      margin: 0 auto; /* Menjaga video tetap di tengah */
+      display: block;
+  }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="margin-left: 30px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo" width="100">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Homepage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Series</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">New & Popular</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My List</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="hero-content text-left">
+          <h1 class="hero-title" style="margin-left: 30px; margin-top: 150px;">Happy Birthday!</h1>
+          <p class="hero-description" style="margin-left: 30px;">
+              Happy Birthday yah amoy, sorry telat ngucapin heheh. Sehat trus ya moy biar bisa jadi pro hengker #anjay
+          </p>
+          <p style="margin-left: 30px;">Click to Play</p>
+          <div class="hero-buttons" style="margin-left: 20px;">
+              <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#playVideoModal">
+                  <i class="bi bi-play-fill"></i> Play
+              </button>
+              <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#infoVideoModal">
+                  <i class="bi bi-info-circle-fill"></i> Info
+              </button>
+          </div>
+      </div>
+  </section>
+  
+  <!-- Play Video Modal -->
+  <div class="modal fade" id="playVideoModal" tabindex="-1" aria-labelledby="playVideoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <video class="modal-video" controls>
+                      <source src="hbd.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <!-- Info Video Modal -->
+  <div class="modal fade" id="infoVideoModal" tabindex="-1" aria-labelledby="infoVideoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <video controls class="anjay-video">
+                    <source src="anjay.mp4" type="video/mp4">
+                    Browser kamu tidak mendukung pemutar video.
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+
+  
+   <!-- FILM START -->
+<div class="movie-list-container">
+    <div class="judul">
+        <h1 class="movie-list-title"><span>|</span> POPULAR</h1>
+    </div>
+   
+    <div class="movie-list-wrapper">
+          
+          <div class="numbered-card">
+           
+            <div class="card">
+              <img src="a111.jpg" alt="Fast and Feel Love (2022)">
+              <div class="overlay">
+                <div class="text">Nonton pilem cuy</div>
+                <a href="#" class="button">Watch</a>
+              </div>
+            </div>
+          </div>
+      
+
+
+          <div class="numbered-card">
+           
+            <div class="card">
+              <img src="a3.jpg" alt="Doctor Strange in the Multiverse of Madness (2022)">
+              <div class="overlay">
+                <div class="text">Bapack agung sedang berkebun</div>
+                <a href="FILM/DOCTOR/DOCTOR.html" class="button">Watch</a>
+              </div>
+            </div>
+          </div>
+      
+
+         
+          <div class="numbered-card">
+          
+            <div class="card">
+              <img src="a11.jpg" alt="The Batman (2022)">
+              <div class="overlay">
+                <div class="text">Agung bersama sepi</div>
+                <a href="FILM/BATMAN/POKEMON.html" class="button">Watch</a>
+              </div>
+            </div>
+          </div>
+      
+
+          <div class="numbered-card">
+           
+            <div class="card">
+              <img src="a2.jpg" alt="Ip Man: The Awakening (2022)">
+              <div class="overlay">
+                <div class="text">Jualan baso kah bang awokawok</div>
+                <a href="FILM/IPMAN/DOCTOR.html" class="button">Watch</a>
+              </div>
+            </div>
+          </div>
+      
+
+          <div class="numbered-card">
+          
+            <div class="card">
+              <img src="a22.jpg">
+              <div class="overlay">
+                <div class="text">anjay keren bat gwej</div>
+                <a href="FILM/BEAST/POKEMON.html" class="button">Watch</a>
+              </div>
+            </div>
+          </div>
+      
+
+
+
+<!-- FILM 1 END -->
+        </div>
+    </div>
+
+     <!-- FILM START -->
+<div class="movie-list-container">
+  <div class="judul">
+      <h1 class="movie-list-title"><span>|</span> This website was made by ai pro hengker</h1>
+  </div>
+ 
+  <div class="movie-list-wrapper">
+        
+        
+
+        <div class="numbered-card">
+         
+          <div class="card">
+            <img src="g2.jpg" alt="Doctor Strange in the Multiverse of Madness (2022)">
+            <div class="overlay">
+              <div class="text">papale papale</div>
+              <a href="FILM/DOCTOR/DOCTOR.html" class="button">Watch</a>
+            </div>
+          </div>
+        </div>
+    
+
+<!-- FILM 1 END -->
+      </div>
+  </div>
+
+  <footer class="footer">
+    <p class="call">Questions? Call <u>085709297847</u></p>
+
+    <div class="foot-cols">
+        <div class="foot-col">
+            <a href="#">FAQ</a>
+            <a href="#">Investor Relations</a>
+            <a href="#">Privacy</a>
+            <a href="#">Speed Test</a>
+        </div>
+
+        <div class="foot-col">
+            <a href="#">Help Center</a>
+            <a href="#">Jobs</a>
+            <a href="#">Cookie Preferences</a>
+            <a href="#">Legal Notices</a>
+        </div>
+
+        <div class="foot-col">
+            <a href="#">Account</a>
+            <a href="#">Ways to Watch</a>
+            <a href="#">Corporate Information</a>
+            <a href="#">Only on Netflix</a>
+        </div>
+
+       
+  
+</footer>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
